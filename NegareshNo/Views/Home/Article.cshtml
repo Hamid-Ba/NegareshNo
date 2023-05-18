@@ -1,0 +1,58 @@
+﻿@model NegareshNo.Data.Model.Consulting.Article
+@using NegareshNo.Core.Convertors
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <header>
+        <p class="container col-sm-12 col-md-5 note note-secondary text-right mt-5 p-5 h6 " dir="rtl">
+            <strong>خلاصه ای از مقاله:</strong>
+            <br>
+            <br>
+            <br>
+            @Model.Summery
+            
+        </p>
+
+        <p class="container col-sm-12 col-md-5 note note-secondary text-right  " dir="rtl">
+            <strong>نویسنده :</strong>
+            @ViewBag.Writer
+        </p>
+
+        <p class="container col-sm-12 col-md-5 note note-secondary text-right  " dir="rtl">
+            <strong>تاریخ انتشار :</strong>
+            @Model.PublishedDate.ToShamsi()
+        </p>
+
+    </header>
+
+<section>
+    <div class="container col-sm-9 col-md-10 alert alert-secondary text-right" role="alert" dir="rtl">
+        <h3>@Model.Title</h3>
+        <hr>
+        <p class=" mt-5">
+            @Html.Raw(Model.Description)
+        </p>
+    </div>
+</section>
+
+<!-- start our carousel -->
+@if (ViewBag.Articles != null)
+{
+    <section class=" mt-5 container">
+        <div class="owl-carousel owl-theme">
+            <div class="item" style="background-color: #2BBBAD ;">
+                <h5 class="text-right p-3 text-white font-weight-bold">جدیدترین مقالات روان شناسی</h5>
+                <img class="vector-carousel" src="~/image/hiclipart.com.png" alt="">
+            </div>
+            @foreach (var article in ViewBag.Articles as IEnumerable<NegareshNo.Data.Model.Consulting.Article>)
+            {
+                <partial name="ArticlePV" model="article" />
+            }
+        </div>
+    </section>
+    <br />
+    <br />
+}
+<!-- end our carousel -->

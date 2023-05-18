@@ -1,0 +1,150 @@
+﻿@model IEnumerable<NegareshNo.Core.ViewModels.Consultant.ConsultantIndexAdminVM>
+@using NegareshNo.Core.Convertors
+
+@{
+    ViewData["Title"] = "اعضاء";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+    @*<div class="modal-placeholder">
+
+    </div>*@
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" style="text-align:center">
+                <div class="card-header bg-light">
+                    لیست کاربران
+                </div>
+
+                <a asp-action="Create" class="btn btn-primary">ایجاد کاربر جدید</a>
+
+                <div class="card-body">
+
+                    @if (ViewBag.Message == "عملیات با موفقیت انجام شد")
+                    {
+                        <div class="alert alert-success">
+                            <span> @ViewBag.Message </span>
+                        </div>
+                    }
+                    else if (ViewBag.Message == "عملیات بااشکال مواجه شد")
+                    {
+                        <div class="alert alert-danger">
+                            <span> @ViewBag.Message </span>
+                        </div>
+                    }
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>نام کامل</th>
+                                    <th>نقش ها</th>
+                                    <th>شغل</th>
+                                    <th>ایمیل</th>
+                                    <th>متولد</th>
+                                    <th>وضعیت تاهل</th>
+                                    <th>شماره موبایل</th>
+                                    <th>وب سایت</th>
+                                    <th>ساکن</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int i = 1;}
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@user.ConsultantFullName</td>
+
+                                        @if (user.Roles.Length != 0)
+                                        {
+                                            int temp = 1;
+                                            string rolesTitle = "";
+                                            @foreach (var role in user.Roles)
+                                            {
+                                                if (temp != user.Roles.Length)
+                                                {
+                                                    rolesTitle += role + " - ";
+
+                                                }
+                                                else
+                                                {
+                                                    rolesTitle += role;
+                                                }
+                                                temp++;
+                                            }
+                                            <td style="text-align:center"> @rolesTitle </td>
+                                        }
+                                        else
+                                        {
+                                            <td> - </td>
+                                        }
+                                        <td>@user.Job</td>
+                                        <td>@user.Email</td>
+                                        <td style="text-align:center">@user.Birthday.ToShamsi()</td>
+
+                                        @if (user.Status)
+                                        {
+                                            <td style="text-align:center" class="text-danger"> مجرد </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="text-align:center" class="text-success"> متاهل </td>
+                                        }
+                                        <td>@user.MobilePhone</td>
+                                        <td>@user.Website</td>
+                                        <td>@user.City</td>
+
+                                        <td style="text-align:center">
+                                            <a asp-action="Edit" asp-route-consultantId="@user.ConsultantId" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                            @*<a asp-action="Details" asp-route-consultantId="@user.ConsultantId" class="btn btn-default btn-sm"><i class="fa fa-desktop"></i></a>*@
+                                        @*<button type="button" data-toggle="ajax-modal" data-url="@Url.Action("Details","Consultants",values:new { consultantId = user.ConsultantId })" 
+                                                class="btn btn-default btn-sm"><i class="fa fa-desktop"></i></button>*@
+                                            <a onclick="Details(@user.ConsultantId)" class="btn btn-default btn-sm"><i class="fa fa-desktop"></i></a>
+                                            <a asp-action="Delete" asp-route-consultantId="@user.ConsultantId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function Details(consultantId) {
+                $.ajax(
+                    {
+                        url: "Details?consultantId=" + consultantId,
+                        type: "get"
+                    }
+                ).done(function (result) {
+                    $("#myModal").modal('show');
+                    $(".modal-title").html("اطلاعات کاربر");
+                    $(".modal-body").html(result);
+                });
+            }
+
+            //$("button[data-toggle = 'ajax-modal']").click(function () {
+
+            //    var placeHolder = $(".modal-placeholder");
+            //    var url = $(this).data('url');
+
+            //    $.get(url).done(function (result) {
+            //        placeHolder.html(result);
+            //        placeHolder.find('.modal').modal('show');
+            //    })
+
+            //})
+
+        </script>
+
+    </div>
+

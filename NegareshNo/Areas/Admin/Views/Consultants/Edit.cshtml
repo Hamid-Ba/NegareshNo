@@ -1,0 +1,275 @@
+﻿@model NegareshNo.Core.ViewModels.Consultant.ConsultantEditVM
+@{
+    ViewData["Title"] = "ویرایش عضو";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>ویرایش عضو</h2>
+
+<h4>@Model.ConsultantFullName</h4>
+<hr />
+
+<div class="container-fluid">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header bg-light">
+                                افزودن تصویر مشاور
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="col-md-12 text-center">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail" style="height: 150px;">
+                                                @if (!String.IsNullOrEmpty(Model.ImageName))
+                                                {
+                                                    <img src="~/image/ConsultantImage/@Model.ImageName" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/image/ConsultantImage/NoImage.jpg" />
+                                                }
+                                            </div>
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="height:200px"> </div>
+                                            <div>
+                                                <span class="btn default btn-file">
+                                                    <span class="fileinput-new btn btn-success"> انتخاب کنید </span>
+                                                    <span class="fileinput-exists btn btn-default"> تغییر عکس </span>
+                                                    <input type="file" name="ImageName" accept=".jpg, .png, .jpeg, .gif, .tif, .tiff, .JPG" />
+                                                </span>
+                                                <a href="javascript:;" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"> حذف </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        افزودن اطلاعات مشاور
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="ConsultantFullName"></label>
+                                        <input asp-for="ConsultantFullName" class="form-control" placeholder="نام کامل">
+                                        <span asp-validation-for="ConsultantFullName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="UserName" class="form-control-label"></label>
+                                        <input asp-for="UserName" class="form-control" placeholder="نام کاربری">
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="Password"></label>
+                                        <input asp-for="Password" type="password" class="form-control" placeholder="رمز عبور">
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">تکرار رمز عبور</label>
+                                        <input name="ConfirmPassword" type="password" class="form-control" placeholder="تکرار رمز عبور">
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="form-control-label"></label>
+                                        <input asp-for="Email" class="form-control" placeholder="ایمیل">
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="City" class="form-control-label"></label>
+                                        <input asp-for="City" class="form-control" placeholder="ساکن">
+                                        <span asp-validation-for="City" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="MobilePhone" class="form-control-label"></label>
+                                        <input asp-for="MobilePhone" class="form-control" placeholder="شماره تماس">
+                                        <span asp-validation-for="MobilePhone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Birthday" class="form-control-label"></label>
+                                        <input asp-for="Birthday" type="date" class="form-control" placeholder="متولد">
+                                        <span asp-validation-for="Birthday" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Website" class="form-control-label"></label>
+                                        <input asp-for="Website" class="form-control" placeholder="وب سایت">
+                                        <span asp-validation-for="Website" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+
+                                    <div class="form-group">
+                                        <label asp-for="Status" class="form-control-label"></label>
+                                        @*<div class="form-group">
+                        <label>Male :</label>  <input type="radio" name="Gender" value="0" />
+                        <label style="padding-left:10px">Female :</label>  <input type="radio" name="Gender" value="1" />
+                    </div>
+                    <input type="radio" name="status" value="0" />
+                        <input type="radio" name="status" value="1" />*@
+                                        <select name="Gender" class="select2 js-states form-control">
+                                            @if (Model.Status)
+                                            {
+                                                <option selected value="1">مجرد</option>
+                                                <option value="0">متاهل</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="1">مجرد</option>
+                                                <option selected value="0">متاهل</option>
+                                            }
+
+                                        </select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">نقش ها</label>
+                                        <select asp-for="RolesId" asp-items="ViewBag.Roles" class="select2 js-states form-control" multiple="multiple">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Job" class="form-control-label"></label>
+                                        <input asp-for="Job" class="form-control" placeholder="شغل">
+                                        <span asp-validation-for="Job" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="CareerSummary" class="form-control-label"></label>
+                                        <textarea asp-for="CareerSummary" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="CareerSummary" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="CareerRecord" class="form-control-label"></label>
+                                        <textarea asp-for="CareerRecord" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="CareerRecord" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="EducationalRecord" class="form-control-label"></label>
+                                        <textarea asp-for="EducationalRecord" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="EducationalRecord" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="WorkRecord" class="form-control-label"></label>
+                                        <textarea asp-for="WorkRecord" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="WorkRecord" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="LiceneRecord" class="form-control-label"></label>
+                                        <textarea asp-for="LiceneRecord" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="LiceneRecord" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Skills" class="form-control-label"></label>
+                                        <input asp-for="Skills" type="text" class="form-control">
+                                        <p style="color:orange">لطفا کلمات را با - از هم جدا کنید</p>
+                                    </div>
+                                    <span asp-validation-for="LiceneRecord" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <input type="hidden" asp-for="ConsultantId" />
+                        <input asp-for="ImageName" type="hidden" />
+                        <button type="submit" class="btn btn-success float-left">ویرایش عضو</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div>
+    <a href="/Admin/Consultants/Index">بازگشت</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

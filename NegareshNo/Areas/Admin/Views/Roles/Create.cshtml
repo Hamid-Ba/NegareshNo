@@ -1,0 +1,54 @@
+﻿@model NegareshNo.Data.Model.Access.Role
+
+@{
+    ViewData["Title"] = "ایجاد نقش جدید";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <form asp-action="Create" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        ایجاد نقش جدید
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="RoleTitle" class="form-control-label"> </label>
+                                        <input asp-for="RoleTitle" type="text" class="form-control" />
+                                        <span asp-validation-for="RoleTitle" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">دسترسی ها</label>
+                                        <select name="PermmsionId" asp-items="ViewBag.Permmisions" class="select2 js-states form-control" multiple="multiple">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <button type="submit" class="btn btn-success float-left">ذخیره اطلاعات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

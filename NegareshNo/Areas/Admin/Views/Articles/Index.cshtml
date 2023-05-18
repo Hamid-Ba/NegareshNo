@@ -1,0 +1,91 @@
+﻿@model PagingList<NegareshNo.Core.ViewModels.Consultant.ArticleAdminIndexVM>
+@using ReflectionIT.Mvc.Paging
+@using NegareshNo.Core.Convertors
+
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "مقالات";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" style="text-align:center">
+            <div class="card-header bg-light">
+                لیست مقالات
+            </div>
+
+            <a asp-action="Create" class="btn btn-primary">ایجاد مقاله جدید</a>
+
+            <div class="card-body">
+
+                @if (ViewBag.Message == "عملیات با موفقیت انجام شد")
+                {
+                    <div class="alert alert-success">
+                        <span> @ViewBag.Message </span>
+                    </div>
+                }
+                else if (ViewBag.Message == "عملیات بااشکال مواجه شد")
+                {
+                    <div class="alert alert-danger">
+                        <span> @ViewBag.Message </span>
+                    </div>
+                }
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>عنوان مقاله</th>
+                                <th>نویسنده</th>
+                                <th>خلاصه</th>
+                                <th>تاریخ انتشار در سایت</th>
+                                <th>آیا منتشر شده است؟</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var article in Model)
+                            {
+                                <tr>
+                                    <td>@ViewBag.RowCount</td>
+                                    <td>@article.Title</td>
+                                    <td>@article.ConsultantName</td>
+                                    <td>@article.Summery</td>
+
+                                    @if (article.IsPublished)
+                                    {
+                                        <td style="text-align:center">@article.PublishedDate.ToShamsi()</td>
+                                        <td> <p class="text-success"> <i class="icon icon-check"> </i> </p> </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align:center"> - </td>
+                                        <td> <p class="text-danger"> <i class="icon icon-close"> </i> </p> </td>
+                                    }
+
+                                    <td style="text-align:center">
+                                        <a asp-action="Edit" asp-route-articleId="@article.ArticleId" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                        <a asp-action="Details" asp-route-articleId="@article.ArticleId" class="btn btn-default btn-sm"><i class="fa fa-desktop"></i></a>
+                                        <a asp-action="Delete" asp-route-articleId="@article.ArticleId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+
+                                ViewBag.RowCount++;
+                            }
+                        </tbody>
+                    </table>
+
+                    <nav>
+                        <vc:pager paging-list="Model"></vc:pager>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

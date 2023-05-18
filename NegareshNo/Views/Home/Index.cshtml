@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewData["Title"] = "صفحه اصلی";
+}
+
+<!-- navbar -->
+<header class="" dir="rtl">
+    <div class="container mt-5">
+        @if (ViewBag.Message == "درخواست شما با موفقیت ثبت شد ، به زودی با شما تماس گرفته خواهد شد")
+        {
+            <div class="alert alert-success alert-dismissible fade show" style="text-align:right">
+                <span> @ViewBag.Message </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <cache expires-after="@TimeSpan.FromDays(365)">
+            <div class="row">
+
+
+
+                <div class="col-sm-12 col-md-12 col-lg-6 ml-auto">
+                    <img class="img-fluid animated pulse infinite slower"
+                         src="~/image/5ded990bf88fbc8b4a3a36be_5d1ac944bc10249b7842998c_featured-image-export-v0.1.png"
+                         alt="">
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="align-self-center p-5 text-right my-5">
+                        <h2 class="font-weight-bold animated zoomIn">موسسه روانشناسی نگرش نو</h2>
+                        <p class="example1 text-muted text-justify ">
+
+                            مشاوره روانشناسی به عنوان ارائه دهنده ی انواع خدمات درمانی می باشد که توسط متخصص روانشناس در
+                            مرکز مشاوره
+                            اجرا شده و این موضوع بر نحوه ی عملکرد افراد در سنین مختلف و روابطشان متمرکز می باشد . مشاوره
+                            روانشناسی به
+                            نگرانی های عاطفی ، شغلی ، اجتماعی ، مدرسه و .... که ممکن است افراد در مراحل مختلف زندگی خود
+                            داشته باشند ،
+                            موثر خواهد بود مشاوره روانشناسی زمان رو به رو شدن با فشار های مختلف زندگی که در خانواده و
+                            گروه و یا سازمان
+                            ها افراد با آن دست و پنجه نرم می کنند و وجود هرگونه مشکلات عاطفی و روانی و در جهت بهبود
+                            شرایط فرد و کاهش
+                            احساس پریشانی در هنگام مواجه شدن با بحران ها مفید خواهد بود.
+
+                        </p>
+                        <p id="example1"></p>
+                        <br>
+                        <a href="/Request" class="btn btn-default">ایجاد درخواست</a>
+                    </div>
+                </div>
+            </div>
+        </cache>
+    </div>
+</header>
+
+@*<cache expires-after="@TimeSpan.FromMinutes(10)">*@
+
+    <!-- start collection -->
+    <section id="sec-one">
+
+        @{
+            List<NegareshNo.Data.Model.Consulting.ConsultingGroup> Groups = ViewBag.Groups;
+            List<NegareshNo.Data.Model.Consulting.ConsultingGroup> temp;
+            int lenght = Groups.Count;
+            int counter = 1;
+
+            for (int i = 0; i < lenght; i += 3)
+            {
+                temp = Groups.Skip((counter - 1) * 3).Take(3).ToList();
+                <partial name="GroupPV" model="temp" />
+                counter++;
+            }
+
+        }
+
+    </section>
+    <!-- end collection -->
+    <!-- start our carousel -->
+    @if (ViewBag.Articles.Count != 0)
+    {
+        <section class=" mt-5 container">
+            <div class="owl-carousel owl-theme">
+                <div class="item" style="background-color: #2BBBAD ;">
+                    <h5 class="text-right p-3 text-white font-weight-bold">جدیدترین مقالات روان شناسی</h5>
+                    <img class="vector-carousel" src="~/image/hiclipart.com.png" alt="">
+                </div>
+                @foreach (var article in ViewBag.Articles as IEnumerable<NegareshNo.Data.Model.Consulting.Article>)
+                {
+                    <partial name="ArticlePV" model="article" />
+                }
+            </div>
+        </section>
+    }
+    <!-- end our carousel -->
+    <!-- start  Consultant-->
+    <section class="col-12 quotes py-5 my-5">
+        <div class="row">
+            @foreach (var consultant in ViewBag.Consultants as IEnumerable<NegareshNo.Core.ViewModels.Consultant.ConsultantSiteVM>)
+            {
+                <!-- start single card -->
+                <partial name="ConsultantPV" model="consultant" />
+                <!-- end single card -->
+            }
+        </div>
+    </section>
+    <!-- end  Consultant-->
+@*</cache>*@

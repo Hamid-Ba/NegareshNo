@@ -1,0 +1,243 @@
+﻿@using NegareshNo.Core.Convertors
+@inject NegareshNo.Core.Services.ADT.IConsultantService service
+
+<!doctype html>
+<html lang="en">
+<head>
+    <partial name="_MetaTagPV" />
+    <title>موسسه مشاوره نگرش نو</title>
+    
+    <link rel="stylesheet" href="~/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="~/vendor/font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="~/css/styles.css">
+    <link rel="stylesheet" href="~/css/jquery.bonsai.css">
+    <link href="/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="/css/bootstrap-fileinput.css" rel="stylesheet" />
+    <link href="/css/TreeView.css" rel="stylesheet" />
+    <link href="~/css/comboTreePlugin.css" rel="stylesheet" />
+    <script src="/vendor/jquery/jquery.min.js"></script>
+</head>
+<body class="sidebar-fixed header-fixed">
+    <div class="page-wrapper">
+        <nav class="navbar page-header">
+
+            <div>
+                <a href="/admin/Consultants" class="btn btn-link sidebar-mobile-toggle d-md-none mr-auto">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+                <a href="/admin/Consultants" class="btn btn-link sidebar-toggle d-md-down-none">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+            </div>
+
+
+
+            <ul class="navbar-nav ml-auto">
+                <li><span style="padding-left:15px">@DateTime.Now.ToShamsi()</span></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="~/image/ConsultantImage/@await service.GetConultantImageNameByUserName(User.Identity.Name)" class="avatar avatar-sm" alt="logo">
+                        <span class="small ml-1 d-md-down-none">@User.Identity.Name</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-header">حساب کاربری</div>
+                        
+                        <a href="/" class="dropdown-item">
+                            <i class="fa fa-undo"></i> بازگشت به سایت
+                        </a>
+                        <a href="/Logout" class="dropdown-item">
+                            <i class="fa fa-lock"></i> خروج
+                        </a>
+                        
+                    </div>
+                    
+                </li>
+            </ul>
+
+        </nav>
+
+
+        <div class="main-container">
+            <div class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav">
+                        <li class="nav-title">پنل مدیریت</li>
+
+                        <li class="nav-item">
+                            <a href="/admin/Consultants" class="nav-link">
+                                <i class="icon icon-speedometer"></i>  داشبورد :
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/AdminPanel" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-paper-plane"></i> مدیریت سایت  <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/AdminPanel" class="nav-link">
+                                        <i class="icon icon-eye"></i> پنل مدیریت
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/Admin/Consultants/Index" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-people"></i> مدیریت اعضاء  <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/Consultants/Index" class="nav-link">
+                                        <i class="icon icon-eye"></i> مشاهده اعضاء
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/Consultants/Create" class="nav-link">
+                                        <i class="icon icon-people"></i> افزودن عضو
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/Admin/ConsultantAndGroups/Index" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-paper-clip"></i> مدیریت مسئولیت ها  <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/ConsultantAndGroups/Index" class="nav-link">
+                                        <i class="icon icon-eye"></i> مشاهده مسئولیت ها
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/ConsultantAndGroups/Create" class="nav-link">
+                                        <i class="icon icon-paper-clip"></i> افزودن مسئولیت
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/Admin/UserRequests/Index" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-diamond"></i> مدیریت درخواست ها  <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/UserRequests/Index" class="nav-link">
+                                        <i class="icon icon-eye"></i> مشاهده درخواست ها
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/Admin/ConsultantGroups" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-list"></i> مدیریت گروه ها  <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/ConsultantGroups/Index" class="nav-link">
+                                        <i class="icon icon-eye"></i>  مشاهده گروه ها
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/ConsultantGroups/Create" class="nav-link">
+                                        <i class="icon icon-list"></i>  ایجاد گروه
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/Admin/Articles/Index" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-list"></i> مدیریت مقالات   <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/Articles/Index" class="nav-link">
+                                        <i class="icon icon-eye"></i>  مشاهده مقالات
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/Articles/Create" class="nav-link">
+                                        <i class="icon icon-list"></i>  ایحاد مقاله
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li class="nav-item nav-dropdown">
+                            <a href="/Admin/Roles" class="nav-link nav-dropdown-toggle">
+                                <i class="icon icon-key"></i> مدیریت دسترسی ها  <i class="fa fa-caret-left"></i>
+                            </a>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/Roles" class="nav-link">
+                                        <i class="icon icon-eye"></i> مشاهده نقش ها
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav-dropdown-items">
+                                <li class="nav-item">
+                                    <a href="/Admin/Roles/Create" class="nav-link">
+                                        <i class="fa fa-check-circle"></i> ایجاد نقش
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+
+                    
+                </nav>
+                <p class="btn-outline-dark" style="text-align:center; transition:1s; border-radius:0px; cursor:default">Backend : HMD <br /> Frontend : Khosro.Ra</p>
+
+            </div>
+            <div class="content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <partial name="ModalDetailPV" />
+
+    <script src="/vendor/popper.js/popper.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/chart.js/chart.min.js"></script>
+    <script src="/js/carbon.js"></script>
+    <script src="/js/demo.js"></script>
+    <script src="/select2/dist/js/select2.min.js"></script>
+    <script src="/select2/dist/js/select2.full.js"></script>
+    <script src="/js/bootstrap-fileinput.js"></script>
+    <script src="/js/TreeView.js"></script>
+    <script src="~/js/comboTreePlugin.js"></script>
+    <script src="~/js/icontains.js"></script>
+
+    <script>
+
+        // for select2
+        $(".select2").select2({
+            placeholder: "انتخاب کنید"
+        });
+
+        // for TreeView
+        $('.demo1').bonsai();
+
+    </script>
+    @RenderSection("Scripts", false)
+</body>
+</html>

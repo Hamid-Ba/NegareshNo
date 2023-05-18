@@ -1,0 +1,103 @@
+﻿@model  NegareshNo.Data.Model.Consulting.Article
+@{
+    ViewData["Title"] = "ویرایش مقاله";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>ویرایش مقاله </h2>
+
+<h4>مقاله @Model.Title</h4>
+<hr />
+
+<div class="container-fluid">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        افزودن اطلاعات مقاله
+                    </div>
+
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="Title"></label>
+                                        <input asp-for="Title" class="form-control" placeholder="عنوان مقاله">
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Summery" class="form-control-label"></label>
+                                        <textarea asp-for="Summery" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="Summery" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-control-label">نویسنده</label>
+                                        <select asp-for="ConsultingId" asp-items="@ViewBag.Writers" class="select2 js-states form-control">
+                                        </select>
+                                        <span asp-validation-for="ConsultingId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="form-control-label"></label>
+                                        <textarea asp-for="Description" class="form-control">
+
+                                        </textarea>
+                                        <span asp-validation-for="Description" id="Description" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="IsPublished"></label>
+                                        <input asp-for="IsPublished">
+                                        <span asp-validation-for="IsPublished" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <input type="hidden" asp-for="ArticleId"/>
+                        <button type="submit" class="btn btn-success float-left">افزودن مقاله</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div>
+    <a asp-action="Index">بازگشت</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+
+        CKEDITOR.replace('Description', {
+            customConfig: '/js/Config.js'
+        });
+
+    </script>
+
+}
+

@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "ایجاد مسئولیت جدید";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <form asp-action="Create" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        ایجاد مسئولیت جدید
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">مشاورین</label>
+                                        <select name="consultantId" asp-items="ViewBag.Consultants" class="select2 js-states form-control">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">مسئولیت ها</label>
+                                        <select name="GroupsId" asp-items="ViewBag.Groups" class="select2 js-states form-control" multiple="multiple">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <button type="submit" class="btn btn-success float-left">ذخیره اطلاعات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

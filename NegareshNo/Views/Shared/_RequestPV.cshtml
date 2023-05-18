@@ -1,0 +1,114 @@
+﻿@model NegareshNo.Core.ViewModels.User.UserRequestCreateVM
+@{
+    ViewData["Title"] = "درخواست مشاوره";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="my-5">
+    <p class="container col-sm-12 col-md-8 alert alert-success text-right mt-5 p-4 h6 " dir="rtl">
+        از طریق این صفحه شما میتوانید درخواست خود را برای مشاوره حضوری و یا تلفنی ثبت کنید...
+    </p>
+    <div class="container col-sm-12 col-md-8 alert alert-warning text-right mt-2 p-4 h6 " dir="rtl">
+        <strong>-فرم زیر را کامل کنید</strong>
+        <br>
+        <strong>-بر روی دکمه ارسال کلیک کنید</strong>
+        <br>
+        <strong>-به زودی با شما تماس گرفته میشود</strong>
+    </div>
+    <form asp-area="Admin" asp-controller="UserRequests" asp-action="Create" method="post">
+
+        <div class="container col-sm-12 col-md-10 col-lg-7" dir="rtl">
+            <div class="border-right p-5 text-right">
+                <div>
+                    <strong>نام و نام خانوادگی :</strong>
+                    <span class="badge badge-danger">این قسمت حتما باید پر شود</span>
+                    <input asp-for="FullName" id="defaultContactFormName" class="form-control mb-4"
+                           placeholder="نام و نام خانوادگی">
+                    <span class="text-danger" asp-validation-for="FullName"></span>
+                </div>
+                <div>
+                    <strong>شماره تماس:</strong>
+                    <span class="badge badge-danger">این قسمت حتما باید پر شود</span>
+                    <input asp-for="PhoneNumber" id="defaultContactFormName" class="form-control mb-4"
+                           placeholder="0915**********">
+                    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                </div>
+                <div>
+                    <strong>شماره تماس دوم:</strong>
+                    <input asp-for="TellPhoneNumber" id="defaultContactFormName" class="form-control mb-4"
+                           placeholder="0915**********">
+                    <span class="text-danger" asp-validation-for="TellPhoneNumber"></span>
+                </div>
+
+
+                <label>نوع درخواست خود را مشخص کنید</label>
+                <select asp-for="GroupId" asp-items="@ViewBag.Groups" id="GroupId" class="browser-default custom-select mb-4">
+                    <option value="" disabled>نوع درخواست خود را مشخص کنید</option>
+                </select>
+                <span class="text-danger" asp-validation-for="GroupId"></span>
+
+                <label>مشاور خود را انتخاب کنید</label>
+                <span class="badge badge-danger">این قسمت حتما باید پر شود</span>
+                <select asp-for="ConsultantId" asp-items="@ViewBag.Consultants" id="ConsultantId" class="browser-default custom-select mb-4">
+                    <option value="" disabled>مشاور خود را انتخاب کنید</option>
+                </select>
+                <span class="text-danger" asp-validation-for="ConsultantId"></span>
+
+                <div>
+                    <strong>موضوع :</strong>
+                    <textarea asp-for="Title" type="text" id="defaultContactFormName" class="form-control rounded-0"
+                              placeholder=""></textarea>
+                    <span class="text-danger" asp-validation-for="Title"></span>
+                </div>
+                <div>
+                    <strong>پیام :</strong>
+                    <textarea asp-for="Description" type="text" id="defaultContactFormName" rows="10" class="form-control rounded-0"
+                              placeholder=""></textarea>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-outline-default btn-block" value="ارسال" />
+
+        </div>
+
+    </form>
+
+
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+
+    <script>
+
+        $("#GroupId").change(function () {
+
+            $.ajax({
+                url: "admin/UserRequests/UpdateConsultantName/" + $(this).val(),
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+
+                    var consultantId = $("#ConsultantId");
+                    consultantId.empty();
+
+                    var jsonArray = JSON.parse(data);
+
+                    for (var i = 0; i < jsonArray.length; i++) {
+
+                        consultantId.append(
+                            $('<option/>').attr('value', jsonArray[i]["ConsultantId"]).text(jsonArray[i]["ConsultantFullName"]),
+                        );
+
+                    }
+                },
+
+                error: function () { alert("error"); }
+            });
+
+        })
+
+
+
+    </script>
+
+
+</section>
+

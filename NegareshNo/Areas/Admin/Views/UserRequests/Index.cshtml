@@ -1,0 +1,120 @@
+﻿@model PagingList<NegareshNo.Core.ViewModels.User.UserRequestAdminIndexVM>
+@using NegareshNo.Core.Convertors
+@using ReflectionIT.Mvc.Paging
+
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "درخواست ها";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" style="text-align:center">
+            <div class="card-header bg-light">
+                لیست درخواست ها
+            </div>
+
+            <div class="card-body">
+
+                @if (ViewBag.Message == "تغییرات با موفقیت اعمال شد" || ViewBag.Message == "حذف با موفقیت اعمال شد")
+                {
+                    <div class="alert alert-success">
+                        <span> @ViewBag.Message </span>
+                    </div>
+                }
+                else if (ViewBag.Message == "عملیات بااشکال مواجه شد")
+                {
+                    <div class="alert alert-danger">
+                        <span> @ViewBag.Message </span>
+                    </div>
+                }
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>نام مشتری</th>
+                                <th>مشاور خواسته</th>
+                                <th>گروه</th>
+                                <th>شماره موبایل</th>
+                                <th>عنوان </th>
+                                <th>زمان ثبت  شده درخواست</th>
+                                <th>زمان داد شده</th>
+                                <th>آیا مشاوره تکمیل شده ؟</th>
+                                <th>آیا وقت تنظیم شده؟</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var request in Model)
+                            {
+                                <tr>
+                                    <td>@ViewBag.RowCount</td>
+                                    <td>@request.FullName</td>
+                                    <td>@request.ConsultantName</td>
+                                    <td>@request.GroupName</td>
+                                    <td>@request.PhoneNumber</td>
+                                    <td>@request.Title</td>
+                                    <td>@request.RegistrationConsultingTime.ToShamsi()</td>
+
+                                    @if (request.HasTime)
+                                    {
+                                        <td style="text-align:center">@request.GivenTime.ToShamsi()</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="text-align:center"> - </td>
+                                    }
+
+                                    @if (request.IsDone)
+                                    {
+                                        <td class="text-success"> <i class="icon icon-check"></i> </td>
+                                    }
+
+                                    else
+                                    {
+                                        <td class="text-danger"> <i class="icon icon-close"></i> </td>
+                                    }
+
+                                    @if (request.HasTime)
+                                    {
+                                        <td class="text-success"> <i class="icon icon-check"></i> </td>
+                                    }
+
+                                    else
+                                    {
+                                        <td class="text-danger"> <i class="icon icon-close"></i> </td>
+                                    }
+
+                                <td style="text-align:center">
+                                    <a asp-action="Edit" asp-route-requestId="@request.RequestId" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                    @if (!request.IsDone)
+                                    {
+                                        <a asp-action="DoneRequest" asp-route-requestId="@request.RequestId" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="DoneRequest" asp-route-requestId="@request.RequestId" class="btn btn-danger btn-sm"><i class="fa fa-window-close"></i></a>
+                                    }
+                                    <a asp-action="Delete" asp-route-requestId="@request.RequestId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                </td>
+                                </tr>
+
+                                ViewBag.RowCount++;
+                            }
+                        </tbody>
+                    </table>
+
+                    <nav>
+                        <vc:pager paging-list="Model"></vc:pager>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

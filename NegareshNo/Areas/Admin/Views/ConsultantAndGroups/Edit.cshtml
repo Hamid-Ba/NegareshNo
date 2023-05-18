@@ -1,0 +1,57 @@
+﻿@model NegareshNo.Core.ViewModels.Consultant.ConsultantAndGroupEditVM
+
+@{
+    ViewData["Title"] = "ویرایش مسئولیت ";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <form asp-action="Edit" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        ویرایش مسئولیت جدید
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+
+                            <div class="row">
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">مشاورین</label>
+                                        <input asp-for="ConsultantName"  disabled  class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">مسئولیت ها</label>
+                                        <select asp-for="GroupsId" asp-items="ViewBag.Groups" class="select2 js-states form-control" multiple="multiple">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <input type="hidden" asp-for="ConsultantId" />
+                        <input type="hidden" asp-for="ConsultantName" />
+                        <button type="submit" class="btn btn-success float-left">ذخیره اطلاعات</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

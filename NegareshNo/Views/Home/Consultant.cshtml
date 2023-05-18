@@ -1,0 +1,110 @@
+﻿@model NegareshNo.Data.Model.Consulting.Consultant
+@using NegareshNo.Core.Convertors
+@{
+    ViewData["Title"] = Model.ConsultantFullName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section>
+    <div class="container mt-5">
+        <div class="row" dir="rtl">
+            <div class="col-sm-6  text-center">
+                <img class="img-fluid rounded-circle" src="~/image/ConsultantImage/@Model.ImageName" style="width:100px;height:150px" alt="100x100"
+                     data-holder-rendered="true">
+                <div class="mt-3">
+                    <p class="h6 font-weight-bold text-default">@Model.ConsultantFullName</p>
+                    <p class="h6 font-weight-bold text-muted">@Model.Job</p>
+                </div>
+            </div>
+            <div class="col-sm-6 text-center mt-lg-5">
+                <p class="h6 text-muted"><strong class="text-default">متولد:</strong>@Model.Birthday.ToShamsi()</p>
+                <p class="h6 text-muted">
+                    <strong class="text-default">وضغیت تاهل:</strong>
+
+                    @if (Model.Status)
+                    {
+                        <span>مجرد</span>
+                    }
+                    else
+                    {
+                        <span>متاهل</span>
+                    }
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container ">
+        <div class="row my-5 text-right">
+            <div class="col-sm-12 col-md-6">
+                <div class="my-5">
+                    <p class="h3"> سوابق تحصیلی</p>
+                    <hr>
+                    <div dir="rtl">
+                        <p class="text-muted">
+                            @Model.EducationalRecord
+                        </p>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="h3"> سوابق شغلی</p>
+                    <hr>
+                    <div dir="rtl">
+                        <p class="text-muted">
+                            @Model.WorkRecord
+                        </p>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="h3"> دوره ها و گواهینامه ها</p>
+                    <hr>
+                    <div dir="rtl">
+                        <p class="text-muted">
+                            @Model.LiceneRecord
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="my-5">
+                    <p class="h3">اطلاعات تماس</p>
+                    <hr>
+                    <div dir="rtl">
+                        <p class="h6 text-muted"><strong class="text-default"> ایمیل:</strong>@Model.Email</p>
+
+                        <p class="h6 text-muted"><strong class="text-default"> شماره تماس:</strong>@Model.MobilePhone</p>
+
+                        <p class="h6 text-muted"><strong class="text-default"> وب سایت:</strong>@Model.Website</p>
+
+                        <p class="h6 text-muted"><strong class="text-default"> محل زندگی:</strong>@Model.City</p>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="h3"> درباره من</p>
+                    <hr>
+                    <div dir="rtl">
+                        <p class="customer-quote text-muted text-right">
+                            @Model.CareerRecord
+                        </p>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="h3"> مهارت ها</p>
+                    <hr>
+                    <div class="p-3" dir="rtl">
+                        <p class="customer-quote text-muted text-right">
+                            @if (Model.Skills != null)
+                            {
+                                @foreach (var skill in Model.Skills.Split("-"))
+                                {
+                                    <span class="badge badge-warning">@skill</span>
+                                }
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

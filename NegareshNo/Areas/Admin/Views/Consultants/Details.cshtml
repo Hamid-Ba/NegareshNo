@@ -1,0 +1,181 @@
+﻿@model NegareshNo.Data.Model.Consulting.Consultant
+@using NegareshNo.Core.Convertors
+
+@{
+    ViewData["Title"] = "جزئیات";
+    Layout = null;//"~/Views/Shared/AdminLayout.cshtml";
+}
+
+<style>
+    dt {
+        border-radius: 3px;
+        color: floralwhite;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    }
+</style>
+
+<div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <img src="~/image/ConsultantImage/@Model.ImageName" style="box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);border-radius:25px; max-width:300px; max-height:250px" />
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="dl-horizontal">
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.ConsultantFullName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.ConsultantFullName)
+                        </dd>
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.UserName)
+                        </dd>
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.CareerSummary)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.CareerSummary)
+                        </dd>
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.CareerRecord)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.CareerRecord)
+                        </dd>
+
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.Job)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Job)
+                        </dd>
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.Birthday)
+                        </dt>
+                        <dd>
+                            @Model.Birthday.ToShamsi()
+                            @*@Html.DisplayFor(model => model.Birthday.ToShamsi())*@
+                        </dd>
+                        <dt class="badge badge-info">
+                            @Html.DisplayNameFor(model => model.Status)
+                        </dt>
+                        <dd>
+                            @if (Model.Status)
+                            {
+                                <span style="color:red">مجرد</span>
+                            }
+                            else
+                            {
+                                <span style="color:green">متاهل</span>
+                            }
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Email)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.MobilePhone)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.MobilePhone)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.Website)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Website)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.Password)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Password)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.City)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.City)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.EducationalRecord)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.EducationalRecord)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.WorkRecord)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.WorkRecord)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.LiceneRecord)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.LiceneRecord)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            @Html.DisplayNameFor(model => model.Skills)
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.Skills)
+                        </dd>
+                        <dt class="badge badge-info" style="border-radius:3px; color:floralwhite">
+                            نقش  ها
+                        </dt>
+
+                        @if (ViewBag.ConsultantRoles != null)
+                        {
+                            string[] ConsultantRoles = ViewBag.ConsultantRoles;
+                            int temp = 1;
+                            string rolesTitle = "";
+                            @foreach (var role in ConsultantRoles)
+                            {
+                                if (temp != ConsultantRoles.Length)
+                                {
+                                    rolesTitle += role + " - ";
+
+                                }
+                                else
+                                {
+                                    rolesTitle += role;
+                                }
+                                temp++;
+                            }
+                            <dd style="text-align:center"> @rolesTitle </dd>
+                        }
+                        else
+                        {
+                            <dd> - </dd>
+                        }
+
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+<div>
+    <a asp-action="Edit" asp-route-consultantId="@Model.ConsultantId" class="btn btn-warning">ویرایش</a> 
+</div>

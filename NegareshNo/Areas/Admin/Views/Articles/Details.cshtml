@@ -1,0 +1,85 @@
+﻿@model NegareshNo.Data.Model.Consulting.Article
+@using NegareshNo.Core.Convertors
+@{
+    ViewData["Title"] = "مقاله";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        جزئیات مقاله @Model.Title
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div>
+                            عنوان مقاله : @Model.Title
+                        </div>
+
+                        <div>
+                            نویسنده : @ViewBag.Writer
+                        </div>
+
+                        <div>
+                            @if (Model.IsPublished)
+                            {
+                                <span>تاریخ انتشار در سایت : </span> <span> @Model.PublishedDate.ToShamsi() </span>
+                            }
+                            else
+                            {
+                                <span>تاریخ انتشار در سایت : </span> <span> - </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class=" col-md-6">
+
+
+
+                        <div>
+
+                            خلاصه :
+                            <div>
+                                @Model.Summery
+                            </div>
+
+                            <div>
+                                وضعیت :
+                                @if (Model.IsPublished)
+                                {
+                                    <span class="badge badge-success btn-block">منتشر شده</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-primary btn-block">پیشنویس</span>
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <hr />
+                        متن مقاله : @Html.Raw(@Model.Description)
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="m-3">
+        <a asp-action="Index">بازگشت</a>
+    </div>    
+</div>
+

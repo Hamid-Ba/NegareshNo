@@ -1,0 +1,68 @@
+﻿@model IEnumerable<NegareshNo.Data.Model.Access.Role>
+
+@{
+    ViewData["Title"] = "نقش ها";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    لیست نقش ها
+                </div>
+
+                <a asp-action="Create" class="btn btn-primary">ایجاد نقش جدید</a>
+
+                <div class="card-body">
+
+                    @if (ViewBag.Message == "حذف با موفقیت انجام شد" || ViewBag.Message == "ویرایش با موفقیت انجام شد")
+                    {
+                        <div class="alert alert-success">
+                            <span> @ViewBag.Message </span>
+                        </div>
+                    }
+                    else if (ViewBag.Message == "حذف با مشکل مواجه شد")
+                    {
+                        <div class="alert alert-danger">
+                            <span> @ViewBag.Message </span>
+                        </div>
+                    }
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            @{ int i = 1; }
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>نام نقش</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@role.RoleTitle</td>
+                                        <td style="text-align:center">
+                                            <a asp-action="Edit" asp-route-roleId="@role.RoleId" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a asp-action="Delete" asp-route-roleId="@role.RoleId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+
+                                    i++;
+                                }
+                            </tbody>
+                        </table>
+                        <nav>
+                            @*<vc:pager paging-list="Model"></vc:pager>*@
+                        </nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>

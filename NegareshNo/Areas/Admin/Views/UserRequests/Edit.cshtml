@@ -1,0 +1,126 @@
+﻿@model NegareshNo.Core.ViewModels.User.UserRequestEditVM
+@using NegareshNo.Core.Convertors
+@{
+    ViewData["Title"] = "ویرایش";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2>ویرایش درخواست</h2>
+
+<h4>@Model.FullName</h4>
+<hr />
+
+<div class="container-fluid">
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        ویرایش اطلاعات درخواست
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" asp-for="FullName"></label> :
+                                        <p>  @Model.FullName </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" class="form-control-label"></label> :
+                                        <p> @Model.PhoneNumber </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="TellPhoneNumber" class="form-control-label"></label> :
+                                        <p>  @Model.TellPhoneNumber </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="RegistrationConsultingTime" class="form-control-label"></label> :
+                                        <p>  @Model.RegistrationConsultingTime.ToShamsi() | @Model.RegistrationConsultingTime </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">مشاور</label>
+                                        <select asp-for="ConsultantId" asp-items="ViewBag.Consultants" class="select2 js-states form-control">
+                                            <option value="">انتخاب کنید</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Title" class="form-control-label"></label> :
+                                        <p>  @Model.Title </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Description" class="form-control-label"></label> :
+                                        <p> @Model.Description </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="GivenTime" class="form-control-label"></label>
+                                        <input asp-for="GivenTime" class="form-control" placeholder="تاریخ">
+                                        <span asp-validation-for="GivenTime" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+
+                                    <div class="form-group">
+                                        <label asp-for="HasTime" class="form-control-label"></label>
+                                        <input asp-for="HasTime">
+                                        <span asp-validation-for="HasTime" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-footer bg-light text-right">
+                        <input type="hidden" asp-for="RequestId" />
+                        <input type="hidden" asp-for="FullName" />
+                        <input type="hidden" asp-for="Title" />
+                        <input type="hidden" asp-for="Description" />
+                        <input type="hidden" asp-for="PhoneNumber" />
+                        <input type="hidden" asp-for="TellPhoneNumber" />
+                        <input type="hidden" asp-for="RegistrationConsultingTime" />
+                        <button type="submit" class="btn btn-success float-left">ویرایش درخواست</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div>
+    <a asp-action="Index">بازگشت</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

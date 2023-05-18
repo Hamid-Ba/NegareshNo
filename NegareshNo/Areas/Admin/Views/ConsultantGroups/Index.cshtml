@@ -1,0 +1,66 @@
+﻿@model IEnumerable<NegareshNo.Core.ViewModels.Consultant.ConsultantGroupIndexVM>
+@{
+    ViewData["Title"] = "گروه ها";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card" style="text-align:center">
+            <div class="card-header bg-light">
+                لیست گروه ها
+            </div>
+
+            <a asp-action="Create" class="btn btn-primary">ایجاد گروه جدید</a>
+
+            <div class="card-body">
+
+                @if (ViewBag.Message == "عملیات با موفقیت انجام شد")
+                {
+                    <div class="alert alert-success">
+                        <span> @ViewBag.Message </span>
+                    </div>
+                }
+                else if (ViewBag.Message == "عملیات بااشکال مواجه شد")
+                {
+                    <div class="alert alert-danger">
+                        <span> @ViewBag.Message </span>
+                    </div>
+                }
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ردیف</th>
+                                <th>عنوان گروه</th>
+                                <th>توضیحات گروه</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var group in Model)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@group.GroupTitle</td>
+                                    <td>@group.Summery</td>
+                                    <td style="text-align:center">
+                                        <a asp-action="Edit" asp-route-groupId="@group.GroupId" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                        <a asp-action="Delete" asp-route-groupId="@group.GroupId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
